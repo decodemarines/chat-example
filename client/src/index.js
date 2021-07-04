@@ -6,12 +6,23 @@ import reportWebVitals from './reportWebVitals';
 import {
     ApolloProvider,
     ApolloClient,
-    InMemoryCache  
+  InMemoryCache,
+  
 } from "@apollo/client";
+import { WebSocketLink } from '@apollo/client/link/ws';
 
+const wsLink = new WebSocketLink({
+  uri: 'ws://localhost:4000/graphql',
+  options: {
+    reconnect: true
+  }
+});
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
+  link:wsLink,
+
   cache: new InMemoryCache()
+  
 });
 
 ReactDOM.render(
